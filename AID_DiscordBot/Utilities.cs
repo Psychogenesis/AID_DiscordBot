@@ -1,28 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
 namespace AID_DiscordBot
 {
-	class Utilities
+	internal class Utilities
 	{
-		private static Dictionary<string,string> alerts;
+		private static readonly Dictionary<string,string> Alerts;
 
-		private const string ALERTPATH = "SystemLang/alerts.json";
+		private const string ALERTPATH = "SystemLang/Alerts.json";
 		static Utilities()
 		{
 			string json = File.ReadAllText(ALERTPATH);
 			dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
-			alerts = data.ToObject<Dictionary<string, string>>();
+			Alerts = data.ToObject<Dictionary<string, string>>();
 		}
 
 		public static string GetAlert(string key)
 		{
-			return (alerts.ContainsKey(key)) ? alerts[key] : $"key {key} is not recognized.";
+			return (Alerts.ContainsKey(key)) ? Alerts[key] : $"key {key} is not recognized.";
+		}
+
+		public static string GetFormattedAlert(string key, params object[] parameters)
+		{
+			return Alerts.ContainsKey(key) ? string.Format(Alerts[key], parameters) : "";
 		}
 	}
 }

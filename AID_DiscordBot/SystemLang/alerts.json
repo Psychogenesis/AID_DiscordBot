@@ -1,3 +1,6 @@
 {
-	"test": "This is a test." 
+	"TEST": "This is a test.",
+	"GREET_$NAME_$BOT": "Hello , {0}. My name is {1}. Welcome to the server.",
+	"SECRET": "The answer is `42`.", 
+	"DATA_$DATA": "Data has {0} pairs" 
 }

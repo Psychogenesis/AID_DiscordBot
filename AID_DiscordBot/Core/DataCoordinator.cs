@@ -32,6 +32,11 @@ namespace AID_DiscordBot.Core
 			return JsonConvert.DeserializeObject<List<UserAccount>>(json);
 		}
 
-		//This is where to create DataBase
-	}
+        public static bool SaveExists(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+
+        //This is where to create DataBase
+    }
 }

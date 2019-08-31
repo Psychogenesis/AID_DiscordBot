@@ -12,7 +12,7 @@ namespace AID_DiscordBot
 
 		static void Main() => new Program().StartAsync().GetAwaiter().GetResult();
 
-		public async Task StartAsync()
+		private async Task StartAsync()
 		{
 			if (string.IsNullOrEmpty(Config.bot.token))
 			{

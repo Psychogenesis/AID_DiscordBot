@@ -1,24 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using Discord.WebSocket;
 
 namespace AID_DiscordBot.Core.UserAccounts
 {
 	public static class UserAccounts
 	{
-		private static List<UserAccount> accounts;
+		private static readonly List<UserAccount> accounts;
 
-		static UserAccounts()
+        private static string accountsFile = "resources/accounts.json";
+
+        static UserAccounts()
 		{
+            if (DataCoordinator.SaveExists(accountsFile))
+            {
+                accounts = DataCoordinator.LoadUserAccounts(accountsFile).ToList();
+            }
+            else
+            {
+                accounts = new List<UserAccount>();
+                SaveAccounts();
+            }
+        }
 
-		}
+        public static void SaveAccounts()
+        {
+            DataCoordinator.SaveUserAccounts(accounts, accountsFile);
+        }
 
-		public static UserAccount GetAccount(SocketUser user)
+        public static UserAccount GetAccount(SocketUser user)
 		{
 			return GetOrCreateAccount(user.Id);
 		}

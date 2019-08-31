@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading.Tasks;
+using AID_DiscordBot.Core.UserAccounts;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -37,8 +37,24 @@ namespace AID_DiscordBot.Modules
 			await Context.Channel.SendMessageAsync("", false, embed.Build());
 		}
 
+        [Command("addXP")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        public async Task AddXP(uint amount)
+        {
+            UserAccount account = UserAccounts.GetAccount(Context.User);
+            account.XP += amount;
+            UserAccounts.SaveAccounts();
+            await Context.Channel.SendMessageAsync($"You gained {amount} XP points.");
+        }
 
-		[Command("pick")]
+        [Command("level")]
+        public async Task ShowXP()
+        {
+            UserAccount account = UserAccounts.GetAccount(Context.User);
+            await Context.Channel.SendMessageAsync($"You have {account.XP} XP points and {account.Points} Points");
+        }
+
+        [Command("pick")]
 		public async Task Pick([Remainder]string msg)
 		{
 			string[] options = msg.Split(new char[]{ '|' }, StringSplitOptions.RemoveEmptyEntries);

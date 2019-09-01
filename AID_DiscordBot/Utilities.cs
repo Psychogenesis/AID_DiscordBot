@@ -8,10 +8,10 @@ namespace AID_DiscordBot
 	{
 		private static readonly Dictionary<string,string> Alerts;
 
-		private const string ALERTPATH = "SystemLang/Alerts.json";
+		private const string Alertpath = "SystemLang/Alerts.json";
 		static Utilities()
 		{
-			string json = File.ReadAllText(ALERTPATH);
+			string json = File.ReadAllText(Alertpath);
 			dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
 			Alerts = data.ToObject<Dictionary<string, string>>();
 		}

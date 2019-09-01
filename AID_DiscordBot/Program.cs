@@ -5,18 +5,19 @@ using Discord.WebSocket;
 
 namespace AID_DiscordBot
 {
-	class Program
+	internal class Program
 	{
 		private DiscordSocketClient _client;
 		private CommandHandler _handler;
 
-		static void Main() => new Program().StartAsync().GetAwaiter().GetResult();
+		private static void Main() => new Program().StartAsync().GetAwaiter().GetResult();
 
 		private async Task StartAsync()
 		{
 			if (string.IsNullOrEmpty(Config.bot.token))
 			{
-				return;;
+                Console.WriteLine("There are no Bot Config found.");
+				return;
 			}
 			_client = new DiscordSocketClient(new DiscordSocketConfig
 			{

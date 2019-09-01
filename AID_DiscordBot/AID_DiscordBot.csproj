@@ -205,7 +205,11 @@
     <Compile Include="Core\UserAccounts\UserAccount.cs" />
     <Compile Include="Core\UserAccounts\UserAccounts.cs" />
     <Compile Include="DataStorage.cs" />
-    <Compile Include="Modules\Misc.cs" />
+    <Compile Include="Modules\Commands\Commands.Api.Blizzard.cs" />
+    <Compile Include="Modules\Commands\Commands.Api.Weather.cs" />
+    <Compile Include="Modules\Commands\Commands.cs" />
+    <Compile Include="Modules\Commands\Commands.Game.cs" />
+    <Compile Include="Modules\Commands\Commands.Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />

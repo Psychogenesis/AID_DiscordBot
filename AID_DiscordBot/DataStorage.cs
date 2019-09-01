@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace AID_DiscordBot
 {
-	internal class DataStorage
+	internal static class DataStorage
 	{
 		private static readonly Dictionary<string, string> Pairs = new Dictionary<string, string>();
-		private const string DATASTORAGEPATH = "SystemLang/DataStorage.json";
+		private const string Datastoragepath = "SystemLang/DataStorage.json";
 
 		public static void AddPairsToDictionary(string key, string value)
 		{
@@ -22,18 +22,18 @@ namespace AID_DiscordBot
 
 		static DataStorage()
 		{
-			if(!ValidateStorageFile(DATASTORAGEPATH))
+			if(!ValidateStorageFile(Datastoragepath))
 			{
 				return;
 			}
-			string json = File.ReadAllText(DATASTORAGEPATH);
+			string json = File.ReadAllText(Datastoragepath);
 			Pairs = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 		}
 
-		public static void SaveData()
+		private static void SaveData()
 		{
 			string json = JsonConvert.SerializeObject(Pairs, Formatting.Indented);
-			File.WriteAllText(DATASTORAGEPATH, json);
+			File.WriteAllText(Datastoragepath, json);
 		}
 
 		private static bool ValidateStorageFile(string file)

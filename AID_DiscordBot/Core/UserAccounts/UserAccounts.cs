@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Discord.WebSocket;
 
@@ -7,26 +6,26 @@ namespace AID_DiscordBot.Core.UserAccounts
 {
 	public static class UserAccounts
 	{
-		private static readonly List<UserAccount> accounts;
+		private static readonly List<UserAccount> Accounts;
 
-        private static string accountsFile = "resources/accounts.json";
+        private const string AccountsFile = "resources/accounts.json";
 
         static UserAccounts()
 		{
-            if (DataCoordinator.SaveExists(accountsFile))
+            if (DataCoordinator.SaveExists(AccountsFile))
             {
-                accounts = DataCoordinator.LoadUserAccounts(accountsFile).ToList();
+                Accounts = DataCoordinator.LoadUserAccounts(AccountsFile).ToList();
             }
             else
             {
-                accounts = new List<UserAccount>();
+                Accounts = new List<UserAccount>();
                 SaveAccounts();
             }
         }
 
         public static void SaveAccounts()
         {
-            DataCoordinator.SaveUserAccounts(accounts, accountsFile);
+            DataCoordinator.SaveUserAccounts(Accounts, AccountsFile);
         }
 
         public static UserAccount GetAccount(SocketUser user)
@@ -36,7 +35,7 @@ namespace AID_DiscordBot.Core.UserAccounts
 
 		private static UserAccount GetOrCreateAccount(ulong id)
 		{
-			IEnumerable<UserAccount> result = from a in accounts where a.ID == id select a;
+			IEnumerable<UserAccount> result = from a in Accounts where a.ID == id select a;
 			UserAccount account = result.FirstOrDefault() ?? CreateAccount(id);
 
 			return account;
@@ -44,14 +43,14 @@ namespace AID_DiscordBot.Core.UserAccounts
 
 		private static UserAccount CreateAccount(ulong id)
 		{
-			var newAccont = new UserAccount()
+			var newAccount = new UserAccount()
 			{
 				ID = id,
 				Points = 0,
 				XP = 0
 			};
-			accounts.Add(newAccont);
-			return newAccont;
+			Accounts.Add(newAccount);
+			return newAccount;
 		}
 	}
 }
